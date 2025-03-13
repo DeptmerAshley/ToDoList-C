@@ -37,7 +37,6 @@ Task* loadTasks(Task* *userTaskList)  // (Task *tasks, int *count)
     //userTaskList = malloc(MAX_TASKS * sizeof(Task));
     int numTasks = 0;
     fscanf(file, "%d\n", &numTasks);
-    printf("%d", numTasks);
 }
 
 
