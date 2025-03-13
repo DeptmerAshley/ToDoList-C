@@ -17,7 +17,7 @@ int main(){
     int menuChoice;
     while (menuChoice != 0)
     {
-        mainMenu(menuChoice);
+        menuChoice = mainMenu(menuChoice);
     }
 
     return 0;
