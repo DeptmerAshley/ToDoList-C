@@ -26,28 +26,25 @@ void deleteTask(Task *tasks, int *count, int id);
 
 void saveTasks(Task *tasks, int count);
 
-Task* loadTasks(Task* userTaskList)  // (Task *tasks, int *count)
+Task* loadTasks(Task* *userTaskList)  // (Task *tasks, int *count)
 {
-    FILE* userTasks = fopen("tasks.txt", "r");
-    if (userTasks == NULL)
+    FILE* file = fopen("tasks.txt", "r");
+    if (file == NULL)
     {
         printf("Cannot locate user information\nExiting...\n");
         return 0;
     }
-    userTaskList = malloc(MAX_TASKS * sizeof(Task));
+    //userTaskList = malloc(MAX_TASKS * sizeof(Task));
+    int numTasks = 0;
+    fscanf(file, "%d\n", &numTasks);
+    printf("%d", numTasks);
 }
 
 
 int main(){
     
-    // int userStartUp = loadTasks();
-    // if (userStartUp == 0)
-    // {
-    //     return 1;
-    // }
-
-    Task* userTaskList;
-    userTaskList = loadTasks(userTaskList);
+    Task* userTaskList = NULL;
+    userTaskList = loadTasks(&userTaskList);
 
     int menuChoice;
     while (menuChoice != 0)
