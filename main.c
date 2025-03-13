@@ -4,7 +4,21 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+int mainMenu(int menuChoice)
+{
+    printf("\n(1): List Tasks\n(2): Add Task\n(3): Mark Task Completed\n(4): Delete Task\n(5): Save Task to File\n(6): Load Tasks from File\n(0): Exit\n");
+    printf("Enter your selection: ");
+    scanf("%d", &menuChoice);
+    return menuChoice;
+}
+
 int main(){
-    printf("Test setup\n");
+    
+    int menuChoice;
+    while (menuChoice != 0)
+    {
+        mainMenu(menuChoice);
+    }
+
     return 0;
 }
