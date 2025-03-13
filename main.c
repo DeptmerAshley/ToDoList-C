@@ -6,6 +6,8 @@
 
 #include "task.h"
 
+#define MAX_TASKS 100
+
 int mainMenu(int menuChoice)
 {
     printf("\n(1): List Tasks\n(2): Add Task\n(3): Mark Task Completed\n(4): Delete Task\n(5): Save Task to File\n(6): Load Tasks from File\n(0): Exit\n");
@@ -24,14 +26,29 @@ void deleteTask(Task *tasks, int *count, int id);
 
 void saveTasks(Task *tasks, int count);
 
-void loadTasks(Task *tasks, int *count)
+Task* loadTasks(Task* userTaskList)  // (Task *tasks, int *count)
 {
-    FILE* userTasks = fopen("tasks.txt"); 
+    FILE* userTasks = fopen("tasks.txt", "r");
+    if (userTasks == NULL)
+    {
+        printf("Cannot locate user information\nExiting...\n");
+        return 0;
+    }
+    userTaskList = malloc(MAX_TASKS * sizeof(Task));
 }
 
 
 int main(){
     
+    // int userStartUp = loadTasks();
+    // if (userStartUp == 0)
+    // {
+    //     return 1;
+    // }
+
+    Task* userTaskList;
+    userTaskList = loadTasks(userTaskList);
+
     int menuChoice;
     while (menuChoice != 0)
     {
