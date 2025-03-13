@@ -24,7 +24,10 @@ void deleteTask(Task *tasks, int *count, int id);
 
 void saveTasks(Task *tasks, int count);
 
-void loadTasks(Task *tasks, int *count);
+void loadTasks(Task *tasks, int *count)
+{
+    FILE* userTasks = fopen("tasks.txt"); 
+}
 
 
 int main(){
