@@ -14,17 +14,17 @@ int mainMenu(int menuChoice)
     return menuChoice;
 }
 
-void addTask(Task *tasks, int *count)
+void addTask(Task *tasks, int *count);
 
-void listTasks(Task *tasks, int count)
+void listTasks(Task *tasks, int count);
 
-void completeTask(Task *tasks, int id, int count)
+void completeTask(Task *tasks, int id, int count);
 
-void deleteTask(Task *tasks, int *count, int id)
+void deleteTask(Task *tasks, int *count, int id);
 
-void saveTasks(Task *tasks, int count)
+void saveTasks(Task *tasks, int count);
 
-void loadTasks(Task *tasks, int *count)
+void loadTasks(Task *tasks, int *count);
 
 
 int main(){
