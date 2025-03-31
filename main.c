@@ -3,12 +3,15 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <locale.h>
 
 #include "task.h"
 
 #define MAX_TASKS 100
 
 struct Task *head = NULL;
+char checkMark[4] = "\u2705";
+char incomp[4] = "\u274c";
 
 int mainMenu(int menuChoice)
 {
@@ -20,7 +23,23 @@ int mainMenu(int menuChoice)
 
 void addTask(Task *tasks, int *count);
 
-void listTasks(Task *tasks, int count);
+void listTasks(Task *tasks, int count) {
+    struct Task *current = head;
+    
+    while (current != NULL) {
+        int id = current->id;
+        char* desc = strcpy(current->description, desc);
+        char* comp;
+        if (current->completed == 0){
+            comp = incomp;
+        }
+        else {
+            comp = checkMark;
+        }
+        printf("%d, %s, %s\n", id, desc, comp);
+        current = current->next;
+    }
+}
 
 void completeTask(Task *tasks, int id, int count);
 
@@ -80,6 +99,8 @@ void loadTasks(const char* fileName) {
 
 
 int main() {
+    setlocale(LC_ALL, "en_US.UTF-8"); // Sets the locale to U.S. English with UTF-8 encoding
+    // Load user tasks (Implement multiple users later)
     loadTasks("tasks.csv");
     
     int menuChoice;
