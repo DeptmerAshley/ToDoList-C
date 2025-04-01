@@ -38,7 +38,7 @@ void listTasks() {
         else {
             comp = checkMark;
         }
-        printf("%d, %s, %s\n", id, desc, comp);
+        printf("%s %d - %s\n", comp, id, desc);
         current = current->next;
     }
     int id = current->id;
@@ -50,7 +50,7 @@ void listTasks() {
     else {
         comp = checkMark;
     }
-    printf("%d, %s, %s\n", id, desc, comp);
+    printf("%s %d - %s\n", comp, id, desc);
 }
 
 void completeTask(Task *tasks, int id, int count);
@@ -85,25 +85,24 @@ void loadTasks(const char* fileName) {
         if (token) {
             taskObj->id = atoi(token);
             token = strtok(NULL, ",");
-            printf("%s, %d", token, taskObj->id);
 
             if (token) {
                 strcpy(taskObj->description, token);
                 token = strtok(NULL, ",");
-            }
 
-            if (token) {
-                taskObj->completed = atoi(token);
-                token = strtok(NULL, ",");
+                if (token) {
+                    taskObj->completed = atoi(token);
+                    token = strtok(NULL, ",");
                 
-                if (head == NULL) {
-                    head = taskObj;
-                    current = taskObj;
-                }
-                else {
-                    current->next = taskObj;
-                    current = taskObj;
-                }
+                    if (head == NULL) {
+                        head = taskObj;
+                        current = taskObj;
+                    }
+                    else {
+                        current->next = taskObj;
+                        current = taskObj;
+                    }
+                }   
             }
         }
     }
