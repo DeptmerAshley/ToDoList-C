@@ -25,11 +25,13 @@ void addTask(Task *tasks, int *count);
 
 void listTasks() {
     struct Task *current = head;
+    char* desc;
+    char* comp;
     
+    printf("\n");
     while (current->next != NULL) {
         int id = current->id;
-        char* desc = strcpy(current->description, desc);
-        char* comp;
+        desc = strcpy(current->description, desc);
         if (current->completed == 0){
             comp = incomp;
         }
@@ -40,8 +42,8 @@ void listTasks() {
         current = current->next;
     }
     int id = current->id;
-    char* desc = strcpy(current->description, desc);
-    char* comp;
+    desc = strcpy(current->description, desc);
+
     if (current->completed == 0){
         comp = incomp;
     }
