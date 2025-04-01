@@ -23,10 +23,10 @@ int mainMenu(int menuChoice)
 
 void addTask(Task *tasks, int *count);
 
-void listTasks(Task *tasks, int count) {
+void listTasks() {
     struct Task *current = head;
     
-    while (current != NULL) {
+    while (current->next != NULL) {
         int id = current->id;
         char* desc = strcpy(current->description, desc);
         char* comp;
@@ -39,6 +39,16 @@ void listTasks(Task *tasks, int count) {
         printf("%d, %s, %s\n", id, desc, comp);
         current = current->next;
     }
+    int id = current->id;
+    char* desc = strcpy(current->description, desc);
+    char* comp;
+    if (current->completed == 0){
+        comp = incomp;
+    }
+    else {
+        comp = checkMark;
+    }
+    printf("%d, %s, %s\n", id, desc, comp);
 }
 
 void completeTask(Task *tasks, int id, int count);
@@ -73,6 +83,7 @@ void loadTasks(const char* fileName) {
         if (token) {
             taskObj->id = atoi(token);
             token = strtok(NULL, ",");
+            printf("%s, %d", token, taskObj->id);
 
             if (token) {
                 strcpy(taskObj->description, token);
@@ -94,7 +105,7 @@ void loadTasks(const char* fileName) {
             }
         }
     }
-    printf("\nUser Info loaded...");
+    printf("\nUser Info loaded...\n");
 }
 
 
@@ -107,6 +118,9 @@ int main() {
     while (menuChoice != 0)
     {
         menuChoice = mainMenu(menuChoice);
+        if (menuChoice == 1) {
+            listTasks();
+        }
     }
 
     return 0;
