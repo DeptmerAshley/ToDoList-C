@@ -10,18 +10,22 @@
 #define MAX_TASKS 100
 
 struct Task *head = NULL;
+int numTasks = 0;
 char checkMark[4] = "\u2705";
 char incomp[4] = "\u274c";
 
 int mainMenu(int menuChoice)
 {
-    printf("\n(1): List Tasks\n(2): Add Task\n(3): Mark Task Completed\n(4): Delete Task\n(5): Save Task to File\n(6): Load Tasks from File\n(0): Exit\n");
+    printf("\n(1): List Tasks\n(2): Add Task\n(3): Mark Task Completed\n"); // (4): Delete Task\n(5): Save Task to File\n(6): Load Tasks from File\n(0): Exit\n");
     printf("Enter your selection: ");
     scanf("%d", &menuChoice);
     return menuChoice;
 }
 
-void addTask(Task *tasks, int *count);
+void loadTasks(const char*);
+void completeTask(Task *tasks, int id, int count);
+void deleteTask(Task *tasks, int *count, int id);
+void saveTasks(Task *tasks, int count);
 
 void listTasks() {
     struct Task *current = head;
@@ -34,7 +38,7 @@ void listTasks() {
         else {
             comp = checkMark;
         }
-        printf("%s %d -%s\n", comp, current->id, current->description);
+        printf("%s %d - %s\n", comp, current->id, current->description);
         current = current->next;
     }
 
@@ -44,14 +48,27 @@ void listTasks() {
     else {
         comp = checkMark;
     }
-    printf("%s %d -%s\n\n\n", comp, current->id, current->description);
+    printf("%s %d - %s\n\n\n", comp, current->id, current->description);
 }
 
-void completeTask(Task *tasks, int id, int count);
+void addTask(const char* fileName) {
+    char newDesc[100];
+    printf("\nGive a description of the Task: ");
+    fgets(newDesc, sizeof(newDesc), stdin);
+    numTasks++;
 
-void deleteTask(Task *tasks, int *count, int id);
+    FILE *tasks = fopen(fileName, "a");
+    if (!tasks) {
+        printf("Error: User Info Not Found\n");
+        return;
+    }
 
-void saveTasks(Task *tasks, int count);
+    fprintf(tasks, "\n%d,%s,%d", numTasks, newDesc, 0);
+    fclose(tasks);
+    head = NULL;
+    numTasks = 0;
+    loadTasks(fileName);
+}
 
 void loadTasks(const char* fileName) {
     FILE *tasks = fopen(fileName, "r");
@@ -68,8 +85,6 @@ void loadTasks(const char* fileName) {
         fclose(tasks);
         return;
     }
-
-    int numTasks = 0;
 
     //Iterate through each line of file and populate the Tasks Linked List
     while (fgets(line, sizeof(line),  tasks) != NULL) {
@@ -100,7 +115,7 @@ void loadTasks(const char* fileName) {
             }
         }
     }
-    printf("\nUser Info loaded...\n");
+    fclose(tasks);
 }
 
 
@@ -113,8 +128,12 @@ int main() {
     while (menuChoice != 0)
     {
         menuChoice = mainMenu(menuChoice);
+
         if (menuChoice == 1) {
             listTasks();
+        }
+        else if (menuChoice == 2) {
+            addTask("tasks.csv");
         }
     }
 
